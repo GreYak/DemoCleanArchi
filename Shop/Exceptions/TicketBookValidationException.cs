@@ -1,5 +1,8 @@
 ﻿namespace Shop.Exceptions
 {
+    /// <summary>
+    /// Thrown when the <see cref="TicketBook"/> isn't valid.
+    /// </summary>
     public class TicketBookValidationException : ApplicationException
     {
         private readonly List<string> _errors;

@@ -2,12 +2,21 @@
 
 namespace Shop
 {
+    /// <summary>
+    /// Represents a ticket book.
+    /// </summary>
     public class TicketBook
     {
         public Guid Id { get; }
         public DateTimeOffset IssueDate { get; }
         private readonly Queue<Ticket> _tickets;
 
+        /// <summary>
+        /// New instance of <see cref="TicketBook"/>
+        /// </summary>
+        /// <param name="id">The identifier</param>
+        /// <param name="tickets">The <see cref="Ticket"/>s composing the book</param>
+        /// <param name="issueDate">The creation date</param>
         public TicketBook(Guid id, IEnumerable<Ticket> tickets, DateTimeOffset issueDate)
         {
             Id = id;
@@ -15,6 +24,12 @@ namespace Shop
             IssueDate = issueDate;
         }
 
+        /// <summary>
+        /// Initialize and validate a new instance of <see cref="TicketBook"/>
+        /// </summary>
+        /// <param name="id">The identifier</param>
+        /// <param name="tickets">The <see cref="Ticket"/>s composing the book</param>
+        /// <param name="issueDate">The creation date</param>
         public static TicketBook New(Guid id, IEnumerable<Ticket> tickets, DateTimeOffset issueDate)
         {
             var ticketBook = new TicketBook(id, tickets, issueDate);

@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{E65506AF-0A4F-44B3-91DE-6F679032F9B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Api", "Demo\Demo.Api.csproj", "{E65506AF-0A4F-44B3-91DE-6F679032F9B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport", "Transport\Transport.csproj", "{E31DD90F-00C9-4047-A14B-351129E84AA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transport", "Transport\Transport.csproj", "{E31DD90F-00C9-4047-A14B-351129E84AA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop", "Shop\Shop.csproj", "{61ED9762-2954-4C8A-AD2D-D027BF042F53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop", "Shop\Shop.csproj", "{61ED9762-2954-4C8A-AD2D-D027BF042F53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Application", "Demo.Application\Demo.Application.csproj", "{B0F1F431-1D35-4671-8E42-3CEDFF99DABD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Application", "Demo.Application\Demo.Application.csproj", "{B0F1F431-1D35-4671-8E42-3CEDFF99DABD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Infrastructure", "Demo.Infrastructure\Demo.Infrastructure.csproj", "{356FB771-D504-4A57-A5EF-2A5A054509A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Infrastructure", "Demo.Infrastructure\Demo.Infrastructure.csproj", "{356FB771-D504-4A57-A5EF-2A5A054509A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,44 +1,43 @@
-﻿using Demo.Application.Model.Commands;
-using Microsoft.Extensions.Logging;
+﻿using Demo.Application.Abstraction;
+using Demo.Application.Dtos.Commands;
+using Demo.Application.Exceptions;
 using Shop;
 using Shop.Repository;
 
 namespace Demo.Application
 {
-    public class ShoppingApplicationService
+    public class ShoppingApplicationService : IShoppingApplicationService
     {
-        private readonly ILogger _logger;
         private readonly ITicketBookRepository _ticketBookRepository;
         private readonly IUserRepository _userRepository;
 
-        public ShoppingApplicationService(ILogger logger, ITicketBookRepository ticketBookRepository, IUserRepository userRepository)
+        public ShoppingApplicationService(ITicketBookRepository ticketBookRepository, IUserRepository userRepository)
         {
-            _logger = logger;
             _ticketBookRepository = ticketBookRepository;
             _userRepository = userRepository;
         }
 
-        public async Task CreateTicketBook(CreateTicketBookDto ticketBookCreationCommand)
+        /// <inheritdoc/>
+        public async Task AddingTicketBookInStoreAsync(CreateTicketBookCommand ticketBookCreationCommand, DateTimeOffset contextualDate)
         {
-            ArgumentNullException.ThrowIfNull(nameof(ticketBookCreationCommand));
-            if (!ticketBookCreationCommand.IsValid())
-                throw new ArgumentException(nameof(ticketBookCreationCommand));
+
+            if (ticketBookCreationCommand?.IsValid() != true)
+                throw new InvalidParamException(nameof(ticketBookCreationCommand), ticketBookCreationCommand);
 
             TicketBook? ticketBook = await _ticketBookRepository.GetTicketBookByIdAsync(ticketBookCreationCommand.TicketBookId);
-            if (ticketBook is not null)
+            if (ticketBook != null)
             {
-                var error = $"{nameof(TicketBook)} with id '{ticketBookCreationCommand.TicketBookId}' already exixts.";
-                _logger.LogWarning(error);
-                throw new ApplicationException(error);
+                throw new AlreadyExistException(nameof(TicketBook), ticketBookCreationCommand.TicketBookId);
             }
 
-            await _ticketBookRepository.CreateTicketBookAsync(ticketBookCreationCommand.ToDomain(DateTimeOffset.Now));  // TODO.
+            await _ticketBookRepository.CreateTicketBookAsync(ticketBookCreationCommand.ToDomain(contextualDate));
         }
 
+        /// <inheritdoc/>
         public async Task UserBuyTicketBookAsync(Guid userId, Guid ticketBookId)
         {
             User user = await _userRepository.GetUserByIdAsync(userId) ?? new User(userId);
-            TicketBook ticketBook = await _ticketBookRepository.GetTicketBookByIdAsync(ticketBookId) ?? throw new ArgumentException(nameof(ticketBookId));
+            TicketBook ticketBook = await _ticketBookRepository.GetTicketBookByIdAsync(ticketBookId) ?? throw new NotFoundException(nameof(TicketBook), ticketBookId);
 
             user.Buy(ticketBook);
 
