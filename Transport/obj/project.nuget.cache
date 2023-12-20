@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "a6Wqc828ZJLbEpMNJHR8IHr9j+Srhu6bSdAFDJHH0vlJnOA3tP6QGXkMOVWVjHyjwl1JMt+gB8IuETqe6yAa7w==",
+  "dgSpecHash": "zDpfDDLuigVqJWEDnJFgb/t1TgnQXEefysEEsQwxApI8hcgaprGWpTapWIcikXneRGFW6IxxtyL1AQWF+LFkfQ==",
   "success": true,
-  "projectFilePath": "C:\\YGre_Workspace\\CleanArchi\\Demo\\Transport\\Transport.csproj",
+  "projectFilePath": "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Transport\\Transport.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

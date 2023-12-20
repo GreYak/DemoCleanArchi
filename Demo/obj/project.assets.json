@@ -475,11 +475,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\YGre_Workspace\\CleanArchi\\Demo\\Demo\\Demo.csproj",
-      "projectName": "Demo",
-      "projectPath": "C:\\YGre_Workspace\\CleanArchi\\Demo\\Demo\\Demo.csproj",
+      "projectUniqueName": "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Demo\\Demo.Api.csproj",
+      "projectName": "Demo.Api",
+      "projectPath": "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Demo\\Demo.Api.csproj",
       "packagesPath": "C:\\Users\\grebo\\.nuget\\packages\\",
-      "outputPath": "C:\\YGre_Workspace\\CleanArchi\\Demo\\Demo\\obj\\",
+      "outputPath": "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Demo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

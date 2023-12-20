@@ -1,7 +1,7 @@
 ﻿namespace Shop.Repository
 {
     /// <summary>
-    /// Ensure the <see cref="TicketBook"/> persistancy.
+    /// Manage the <see cref="TicketBook"/> persistancy.
     /// </summary>
     public interface ITicketBookRepository
     {

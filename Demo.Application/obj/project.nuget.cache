@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QOpq9ZpVgrUBZp2M92gEvzwECvZ84eipxZWH2MhUhpOEF6W8HT1QCqlxFvZJ+nR2RRT+STawXVgSwdgE5ffXng==",
+  "dgSpecHash": "Khq5oNKgLHb68PI9DV/fQqjQk6ZPjhD1o7ftjuPmC3yJLuZ6Ruzn7NONMQuIlxlKTsjZBmz27fS8IyF+idXnlg==",
   "success": true,
-  "projectFilePath": "C:\\YGre_Workspace\\CleanArchi\\Demo\\Demo.Application\\Demo.Application.csproj",
+  "projectFilePath": "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Demo.Application\\Demo.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\grebo\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.1\\microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512"
   ],

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fveCtVLsRg8IuYklgn7AndaQv4c/RnCtL+ByGLGl2t/UycW6RbIRw9ouig16S844vRazTRlELieOf6eulJpt+g==",
+  "dgSpecHash": "RpJBYtCIpHBKVjJbVosx4aFwDTBxfX3Hh9sX9R16+FRBARXvUVt3PCWe3avgaWodjTDB0AYSFGe2zc3EmVBzVg==",
   "success": true,
-  "projectFilePath": "C:\\YGre_Workspace\\CleanArchi\\Demo\\Demo\\Demo.csproj",
+  "projectFilePath": "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Demo\\Demo.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\grebo\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.11\\microsoft.aspnetcore.openapi.7.0.11.nupkg.sha512",
     "C:\\Users\\grebo\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

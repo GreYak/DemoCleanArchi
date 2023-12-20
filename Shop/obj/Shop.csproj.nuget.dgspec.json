@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\YGre_Workspace\\CleanArchi\\Demo\\Shop\\Shop.csproj": {}
+    "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Shop\\Shop.csproj": {}
   },
   "projects": {
-    "C:\\YGre_Workspace\\CleanArchi\\Demo\\Shop\\Shop.csproj": {
+    "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Shop\\Shop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\YGre_Workspace\\CleanArchi\\Demo\\Shop\\Shop.csproj",
+        "projectUniqueName": "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Shop\\Shop.csproj",
         "projectName": "Shop",
-        "projectPath": "C:\\YGre_Workspace\\CleanArchi\\Demo\\Shop\\Shop.csproj",
+        "projectPath": "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Shop\\Shop.csproj",
         "packagesPath": "C:\\Users\\grebo\\.nuget\\packages\\",
-        "outputPath": "C:\\YGre_Workspace\\CleanArchi\\Demo\\Shop\\obj\\",
+        "outputPath": "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Shop\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "wvsBZJ4/YPda8EU3wBu4zRTB2FXBUNGiPIVGTZecUfY=",
-  "Source": "Demo",
-  "BasePath": "_content/Demo",
+  "Hash": "i9NAsxhEY5ZWTHdNzcpl+Hjtkq/MQdtWjv+2vrSTW8Y=",
+  "Source": "Demo.Api",
+  "BasePath": "_content/Demo.Api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
