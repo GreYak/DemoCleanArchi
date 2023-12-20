@@ -17,6 +17,7 @@ namespace Shop
         /// <param name="ticketBook">The owned ticketBook</param>
         public User(Guid id, TicketBook? ticketBook=null)
         {
+            Id = id;
             TicketBook = ticketBook;
         }
 

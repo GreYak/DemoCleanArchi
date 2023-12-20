@@ -7,8 +7,8 @@ namespace Transport.Contracts
     /// </summary>
     public class ControlService
     {
-        private User _user;
-        private Controller _controller;
+        private readonly User _user;
+        private readonly Controller _controller;
 
         public ControlService(ref User user, ref Controller controller)
         {
