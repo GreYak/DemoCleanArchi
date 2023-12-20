@@ -25,8 +25,16 @@ namespace Demo.Application
         {
             User user = await _userRepository.GetUserByIdAsync(userId) ?? throw new NotFoundException(nameof(User), userId);
 
-            Ticket ticket = user.UseTicket();
-            ticket.Compost(contextualDate);
+            Ticket ticket;
+            try
+            {
+                ticket = user.UseTicket();
+                ticket.Compost(contextualDate);
+            }
+            catch (Exception ex)
+            {
+                throw new DomainException(nameof(ShoppingApplicationService.UserBuyTicketBookAsync), ex);
+            }
 
             await _userRepository.SaveAsync(user);
             await _ticketRepository.SaveAsync(ticket);
@@ -38,8 +46,15 @@ namespace Demo.Application
             User user = await _userRepository.GetUserByIdAsync(userId) ?? throw new NotFoundException(nameof(User), userId);
             Controller controller = await _controllerRepository.GetControllerByIdAsync(controllerId) ?? throw new NotFoundException(nameof(Controller), controllerId);
 
-            var controlService = new ControlService(ref user, ref controller);
-            controlService.DoControl(dateOfControl);
+            try
+            {
+                var controlService = new ControlService(ref user, ref controller);
+                controlService.DoControl(dateOfControl);
+            }
+            catch (Exception ex)
+            {
+                throw new DomainException(nameof(ShoppingApplicationService.UserBuyTicketBookAsync), ex);
+            }
 
             await _userRepository.SaveAsync(user);
             await _controllerRepository.SaveAsync(controller);

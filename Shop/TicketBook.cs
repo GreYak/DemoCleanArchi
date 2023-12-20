@@ -41,6 +41,7 @@ namespace Shop
         /// <summary>
         /// Get the list of tickets composing the book
         /// </summary>
+        /// <exception cref="TicketBookValidationException"></exception>
         public IReadOnlyList<Ticket> Tickets => _tickets.ToList().AsReadOnly();
 
         private void Validate()

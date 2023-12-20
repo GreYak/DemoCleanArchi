@@ -34,11 +34,18 @@ namespace Demo.Application
 
             TicketBook? ticketBook = await _ticketBookRepository.GetTicketBookByIdAsync(ticketBookCreationCommand.TicketBookId);
             if (ticketBook != null)
-            {
                 throw new AlreadyExistException(nameof(TicketBook), ticketBookCreationCommand.TicketBookId);
+
+            try
+            {
+                ticketBook = ticketBookCreationCommand.ToDomain(contextualDate);
+            }
+            catch (Exception ex) 
+            { 
+                throw new DomainException(nameof(ShoppingApplicationService.AddingTicketBookInStoreAsync), ex);
             }
 
-            await _ticketBookRepository.CreateTicketBookAsync(ticketBookCreationCommand.ToDomain(contextualDate));
+            await _ticketBookRepository.CreateTicketBookAsync(ticketBook);
         }
 
         /// <inheritdoc/>
@@ -48,8 +55,15 @@ namespace Demo.Application
             TransportUser transportUser = await _transportUserRepository.GetUserByIdAsync(userId) ?? new TransportUser(userId);
             TicketBook ticketBook = await _ticketBookRepository.GetTicketBookByIdAsync(ticketBookId) ?? throw new NotFoundException(nameof(TicketBook), ticketBookId);
 
-            shoppingUser.Buy(ticketBook);
-            transportUser.BuyTickets(ticketBook.Tickets.Select(t => new TransportTicket(t.Id, ticketBook.IssueDate)));
+            try 
+            { 
+                shoppingUser.Buy(ticketBook);
+                transportUser.BuyTickets(ticketBook.Tickets.Select(t => new TransportTicket(t.Id, ticketBook.IssueDate)));
+            }
+            catch (Exception ex) 
+            { 
+                throw new DomainException(nameof(ShoppingApplicationService.UserBuyTicketBookAsync), ex);
+            }
 
             await _shopUserRepository.SaveAsync(shoppingUser);
             await _transportUserRepository.SaveAsync(transportUser);

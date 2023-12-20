@@ -9,6 +9,10 @@ namespace Transport
     {
         public Guid Id { get; }
         private readonly Queue<Ticket> _tickets;
+
+        /// <summary>
+        /// The <see cref="Ticket"/> in use
+        /// </summary>
         public Ticket? CurrentTicket { get; private set; }
 
         /// <summary>
@@ -55,9 +59,14 @@ namespace Transport
         }
 
         /// <summary>
-        /// The <see cref="Ticket"/> in use.
+        /// True if <see cref="Ticket"/> in use.
         /// </summary>
-        public bool HasTicket => CurrentTicket != null;
+        public bool HasCurrentTicket => CurrentTicket != null;
+
+        /// <summary>
+        /// True if has some <see cref="Ticket"/> available to b used.
+        /// </summary>
+        public bool HasTicketInPocket => _tickets.Count > 0;
 
         /// <summary>
         /// The <see cref="Ticket"/>s owned.

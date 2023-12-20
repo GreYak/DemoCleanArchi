@@ -1,4 +1,6 @@
-﻿namespace Transport.Contracts
+﻿using Transport.Exceptions;
+
+namespace Transport.Contracts
 {
     /// <summary>
     /// Service to manage a conrol
@@ -18,11 +20,15 @@
         /// Execute the control
         /// </summary>
         /// <param name="controlDate">Date of the control</param>
+        /// <exception cref="NoMoreTicketForUserException"></exception>
         public void DoControl(DateTimeOffset controlDate)
         {
-            if (!_user.HasTicket)
+            if (!_user.HasCurrentTicket)
             {
-                _user.UseTicket();
+                if (_user.HasTicketInPocket)
+                {
+                    _user.UseTicket();
+                }
             }
 
             if (_user.CurrentTicket?.IsValid(controlDate)!= true)

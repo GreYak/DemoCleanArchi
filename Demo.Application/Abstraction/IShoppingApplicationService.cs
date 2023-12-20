@@ -1,4 +1,5 @@
 ﻿using Demo.Application.Dtos.Commands;
+using Demo.Application.Exceptions;
 
 namespace Demo.Application.Abstraction
 {
@@ -15,6 +16,7 @@ namespace Demo.Application.Abstraction
         /// <returns><see cref="Task"/></returns>
         /// <exception cref="InvalidParamException">When <see cref="CreateTicketBookCommand"/>isn't valid.</exception>
         /// <exception cref="AlreadyExistException">When ticketbook already exists.</exception>
+        /// <exception cref="DomainException"></exception> 
         Task AddingTicketBookInStoreAsync(CreateTicketBookCommand ticketBookCreationCommand, DateTimeOffset contextualDate);
 
         /// <summary>
@@ -24,6 +26,7 @@ namespace Demo.Application.Abstraction
         /// <param name="ticketBookId">The id of the ticketbook to buy</param>
         /// <returns><see cref="Task"/></returns>
         /// <exception cref="NotFoundException">When ticketbook doesn't exist.</exception>
+        /// <exception cref="DomainException"></exception> 
         Task UserBuyTicketBookAsync(Guid userId, Guid ticketBookId);
     }
 }
