@@ -1,4 +1,6 @@
-﻿namespace Demo.Infrastructure.Ef.Model
+﻿using Transport;
+
+namespace Demo.Infrastructure.Ef.Model
 {
     public class ControllerDb
     {
@@ -9,6 +11,11 @@
         public Task DoTrucAsync()
         {
             return Task.CompletedTask;
+        }
+
+        internal Controller ToDomain()
+        {
+            return new Controller(Id, Fraudsters.Select(u => u.Id), ControlledTickets.Where(t => t.ControlDate.HasValue).ToDictionary(t => t.Id, t => t.ControlDate!.Value));
         }
     }
 }

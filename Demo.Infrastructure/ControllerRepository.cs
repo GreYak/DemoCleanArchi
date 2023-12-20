@@ -1,15 +1,22 @@
-﻿using Transport;
+﻿using Demo.Infrastructure.Ef;
+using Microsoft.EntityFrameworkCore;
+using Transport;
 using Transport.Repository;
 
 namespace Demo.Infrastructure
 {
     public class ControllerRepository : IControllerRepository
     {
-        public Task<Controller?> GetControllerByIdAsync(Guid controllerId)
+        private readonly DemoDbContext _dbContext = new DemoDbContext();
+
+        /// <inheritdoc/>
+        public async Task<Controller?> GetControllerByIdAsync(Guid controllerId)
         {
-            throw new NotImplementedException();
+            var controllerDb = await _dbContext.Controllers.SingleOrDefaultAsync(c => c.Id == controllerId);
+            return controllerDb?.ToDomain();
         }
 
+        /// <inheritdoc/>
         public Task SaveAsync(Controller controller)
         {
             throw new NotImplementedException();
