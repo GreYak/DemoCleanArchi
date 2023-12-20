@@ -12,7 +12,12 @@ namespace Transport
         public DateTimeOffset? _compostDate;
         public DateTimeOffset? EndOfValidityDate { get; private set; }
 
-        private Ticket(Guid id, DateTimeOffset issueDate)
+        /// <summary>
+        /// Initialize a new instance of <see cref="Ticket"/>
+        /// </summary>
+        /// <param name="id">The ticket identifier</param>
+        /// <param name="issueDate">The isuue date of the ticket</param>
+        public Ticket(Guid id, DateTimeOffset issueDate)
         {
             Id = id;
             IssueDate = issueDate;
@@ -28,16 +33,6 @@ namespace Transport
         {
             _compostDate = compostDate;
             EndOfValidityDate = endOfValidityDate;
-        }
-
-        /// <summary>
-        /// Create a new instance of <see cref="Ticket"/>
-        /// </summary>
-        /// <param name="issueDate"></param>
-        /// <returns><see cref="Ticket"/></returns>
-        public static Ticket New(DateTimeOffset issueDate)
-        {
-            return new Ticket(Guid.NewGuid(), issueDate);
         }
 
         /// <summary>

@@ -3,18 +3,26 @@ using Demo.Application.Dtos.Commands;
 using Demo.Application.Exceptions;
 using Shop;
 using Shop.Repository;
+using Transport;
+using ITransportUserRepository = Transport.Repository.IUserRepository;
+using IShopUserRepository = Shop.Repository.IUserRepository;
+using ShoppingUser = Shop.User;
+using TransportUser = Transport.User;
+using TransportTicket = Transport.Ticket;
 
 namespace Demo.Application
 {
     public class ShoppingApplicationService : IShoppingApplicationService
     {
         private readonly ITicketBookRepository _ticketBookRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IShopUserRepository _shopUserRepository;
+        private readonly ITransportUserRepository _transportUserRepository;
 
-        public ShoppingApplicationService(ITicketBookRepository ticketBookRepository, IUserRepository userRepository)
+        public ShoppingApplicationService(ITicketBookRepository ticketBookRepository, IShopUserRepository shopUserRepository, ITransportUserRepository transportUserRepository)
         {
             _ticketBookRepository = ticketBookRepository;
-            _userRepository = userRepository;
+            _shopUserRepository = shopUserRepository;
+            _transportUserRepository = transportUserRepository;
         }
 
         /// <inheritdoc/>
@@ -36,12 +44,15 @@ namespace Demo.Application
         /// <inheritdoc/>
         public async Task UserBuyTicketBookAsync(Guid userId, Guid ticketBookId)
         {
-            User user = await _userRepository.GetUserByIdAsync(userId) ?? new User(userId);
+            ShoppingUser shoppingUser = await _shopUserRepository.GetUserByIdAsync(userId) ?? new ShoppingUser(userId);
+            TransportUser transportUser = await _transportUserRepository.GetUserByIdAsync(userId) ?? new TransportUser(userId);
             TicketBook ticketBook = await _ticketBookRepository.GetTicketBookByIdAsync(ticketBookId) ?? throw new NotFoundException(nameof(TicketBook), ticketBookId);
 
-            user.Buy(ticketBook);
+            shoppingUser.Buy(ticketBook);
+            transportUser.BuyTickets(ticketBook.Tickets.Select(t => new TransportTicket(t.Id, ticketBook.IssueDate)));
 
-            await _userRepository.SaveAsync(user);
+            await _shopUserRepository.SaveAsync(shoppingUser);
+            await _transportUserRepository.SaveAsync(transportUser);
         }
     }
 }

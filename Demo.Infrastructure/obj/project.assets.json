@@ -11,6 +11,16 @@
         "runtime": {
           "bin/placeholder/Shop.dll": {}
         }
+      },
+      "Transport/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/Transport.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Transport.dll": {}
+        }
       }
     }
   },
@@ -19,11 +29,17 @@
       "type": "project",
       "path": "../Shop/Shop.csproj",
       "msbuildProject": "../Shop/Shop.csproj"
+    },
+    "Transport/1.0.0": {
+      "type": "project",
+      "path": "../Transport/Transport.csproj",
+      "msbuildProject": "../Transport/Transport.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "Shop >= 1.0.0"
+      "Shop >= 1.0.0",
+      "Transport >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -61,6 +77,9 @@
           "projectReferences": {
             "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Shop\\Shop.csproj": {
               "projectPath": "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Shop\\Shop.csproj"
+            },
+            "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Transport\\Transport.csproj": {
+              "projectPath": "C:\\YGre_Workspace\\CleanArchi\\DemoCleanArchi\\Transport\\Transport.csproj"
             }
           }
         }

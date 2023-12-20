@@ -23,6 +23,7 @@ namespace Transport
             _tickets = new Queue<Ticket>(tickets?? Array.Empty<Ticket>());
             CurrentTicket = currentTicket;
         }
+        public User(Guid id) : this(id, null, null) { }
 
         /// <summary>
         /// User buy tickets

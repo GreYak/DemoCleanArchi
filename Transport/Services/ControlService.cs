@@ -28,7 +28,7 @@
             if (_user.CurrentTicket?.IsValid(controlDate)!= true)
             {
                 _controller.NoticeFraudster(_user.Id);
-                _user.BuyTickets(new List<Ticket> { Ticket.New(controlDate) });
+                _user.BuyTickets(new List<Ticket> { new Ticket(Guid.NewGuid(), controlDate) }) ;
                 _user.UseTicket();
             }
  

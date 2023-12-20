@@ -38,6 +38,11 @@ namespace Shop
             return ticketBook;
         }
 
+        /// <summary>
+        /// Get the list of tickets composing the book
+        /// </summary>
+        public IReadOnlyList<Ticket> Tickets => _tickets.ToList().AsReadOnly();
+
         private void Validate()
         {
             var errors = new List<string>();
