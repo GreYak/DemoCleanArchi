@@ -26,7 +26,7 @@ namespace Demo.Application.Dtos.Commands
         /// <returns><see cref="TicketBook"/></returns>
         internal TicketBook ToDomain(DateTimeOffset issueDate)
         {
-            return TicketBook.New(TicketBookId, Tickets.Select(t => new Ticket(t)), issueDate);
+            return TicketBook.New(TicketBookId, Tickets, issueDate);
         }
     }
 }

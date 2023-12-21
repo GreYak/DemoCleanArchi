@@ -37,7 +37,7 @@ namespace Demo.Application
             }
 
             await _userRepository.SaveAsync(user);
-            await _ticketRepository.SaveAsync(ticket);
+            await _ticketRepository.UpdateAsync(ticket);
         }
 
         /// <inheritdoc/>

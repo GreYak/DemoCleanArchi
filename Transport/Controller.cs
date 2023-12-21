@@ -48,5 +48,15 @@
         {
             _fraudster.Add(id);
         }
+
+        /// <summary>
+        /// The fraudsters Ids.
+        /// </summary>
+        public IReadOnlyList<Guid> FraudsterIds => _fraudster.AsReadOnly();
+
+        /// <summary>
+        /// The controlled tickets and their dates.
+        /// </summary>
+        public IReadOnlyDictionary<Guid, DateTimeOffset> ControlledTickets => _controlledTickets.AsReadOnly();
     }
 }

@@ -9,7 +9,7 @@ namespace Transport
     {
         public Guid Id { get; }
         public DateTimeOffset IssueDate { get; }
-        public DateTimeOffset? _compostDate;
+        public DateTimeOffset? CompostDate { get; private set; }
         public DateTimeOffset? EndOfValidityDate { get; private set; }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace Transport
         /// <param name="endOfValidityDate">The end of validity of the ticket</param>
         public Ticket(Guid id, DateTimeOffset issueDate, DateTimeOffset? compostDate, DateTimeOffset? endOfValidityDate) : this(id, issueDate)
         {
-            _compostDate = compostDate;
+            CompostDate = compostDate;
             EndOfValidityDate = endOfValidityDate;
         }
 
@@ -40,7 +40,7 @@ namespace Transport
         /// </summary>
         /// <param name="dateOfCheck">The date of checking of validity</param>
         /// <returns>True if ticket is composted and not expired, else false</returns>
-        public bool IsValid(DateTimeOffset dateOfCheck) => _compostDate.HasValue && DetermineValidityDate(_compostDate!.Value) > dateOfCheck;
+        public bool IsValid(DateTimeOffset dateOfCheck) => CompostDate.HasValue && DetermineValidityDate(CompostDate!.Value) > dateOfCheck;
 
         /// <summary>
         /// Compost the ticket and activate its using.
@@ -52,7 +52,7 @@ namespace Transport
             if (!IsValid(compostDate))
                 throw new ExpiredTicketException(Id);
 
-            _compostDate = compostDate;
+            CompostDate = compostDate;
             EndOfValidityDate = DetermineValidityDate(compostDate);
         }
 

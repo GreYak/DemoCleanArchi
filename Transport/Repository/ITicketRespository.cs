@@ -10,6 +10,6 @@
         /// </summary>
         /// <param name="ticket">The <see cref="Ticket"/> to save</param>
         /// <returns><see cref="Task"/></returns>
-        Task SaveAsync(Ticket ticket);
+        Task UpdateAsync(Ticket ticket);
     }
 }

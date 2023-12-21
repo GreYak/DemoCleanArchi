@@ -58,7 +58,7 @@ namespace Demo.Application
             try 
             { 
                 shoppingUser.Buy(ticketBook);
-                transportUser.BuyTickets(ticketBook.Tickets.Select(t => new TransportTicket(t.Id, ticketBook.IssueDate)));
+                transportUser.BuyTickets(ticketBook.TicketIds.Select(id => new TransportTicket(id, ticketBook.IssueDate)));
             }
             catch (Exception ex) 
             { 

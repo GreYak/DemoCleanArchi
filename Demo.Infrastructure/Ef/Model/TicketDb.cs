@@ -1,4 +1,6 @@
-﻿namespace Demo.Infrastructure.Ef.Model
+﻿using Transport;
+
+namespace Demo.Infrastructure.Ef.Model
 {
     public class TicketDb
     {
@@ -8,9 +10,17 @@
         public DateTimeOffset? EndOfValidityDate { get; set; }
         public DateTimeOffset? ControlDate { get; set; }
 
-        internal Shop.Ticket ToShopDomain()
+        //public Guid TicketBookId { get; set; }
+        //public TicketBookDb TicketBook { get; set; }
+
+
+        internal void Feed(Ticket currentTicket)
         {
-            return new Shop.Ticket(Id);
+            ArgumentNullException.ThrowIfNull(currentTicket);
+
+            IssueDate = currentTicket.IssueDate;
+            CompostDate = currentTicket.CompostDate;
+            EndOfValidityDate = currentTicket.EndOfValidityDate;
         }
 
         internal Transport.Ticket ToTransportDomain()

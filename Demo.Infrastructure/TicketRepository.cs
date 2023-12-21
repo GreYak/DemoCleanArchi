@@ -1,13 +1,28 @@
-﻿using Transport;
+﻿using Demo.Infrastructure.Ef;
+using Microsoft.EntityFrameworkCore;
+using Transport;
 using Transport.Repository;
 
 namespace Demo.Infrastructure
 {
     public class TicketRepository : ITicketRespository
     {
-        public Task SaveAsync(Ticket ticket)
+        private readonly DemoDbContext _dbContext;
+
+        public TicketRepository(DemoDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
+        }
+
+        /// <inheritdoc/>
+        public async Task UpdateAsync(Ticket ticket)
+        {
+            ArgumentNullException.ThrowIfNull(ticket);
+
+            var ticketDb = await _dbContext.Tickets.SingleAsync(t => t.Id == ticket.Id);
+            ticketDb.Feed(ticket);
+
+            _dbContext.SaveChanges();
         }
     }
 }
