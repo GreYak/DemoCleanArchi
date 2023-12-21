@@ -13,7 +13,7 @@ namespace Demo.Infrastructure
         public async Task<Controller?> GetControllerByIdAsync(Guid controllerId)
         {
             var controllerDb = await _dbContext.Controllers.SingleOrDefaultAsync(c => c.Id == controllerId);
-            return controllerDb?.ToDomain();
+            return controllerDb?.ToTransportDomain();
         }
 
         /// <inheritdoc/>

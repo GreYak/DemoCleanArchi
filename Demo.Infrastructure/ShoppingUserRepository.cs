@@ -1,15 +1,22 @@
-﻿using Shop;
+﻿using Demo.Infrastructure.Ef;
+using Microsoft.EntityFrameworkCore;
+using Shop;
 using Shop.Repository;
 
 namespace Demo.Infrastructure
 {
     public class ShoppingUserRepository : IUserRepository
     {
-        public Task<User?> GetUserByIdAsync(Guid userId)
+        private readonly DemoDbContext _dbContext = new DemoDbContext();
+
+        /// <inheritdoc/>
+        public async Task<User?> GetUserByIdAsync(Guid userId)
         {
-            throw new NotImplementedException();
+            var userDb = await _dbContext.Users.SingleOrDefaultAsync(c => c.Id == userId);
+            return userDb?.ToShopDomain();
         }
 
+        /// <inheritdoc/>
         public Task SaveAsync(User user)
         {
             throw new NotImplementedException();
