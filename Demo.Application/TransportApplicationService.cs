@@ -6,7 +6,7 @@ using Transport.Repository;
 
 namespace Demo.Application
 {
-    internal class TransportApplicationService : ITransportApplicationService
+    public class TransportApplicationService : ITransportApplicationService
     {
         private readonly IUserRepository _userRepository;
         private readonly ITicketRespository _ticketRepository;
