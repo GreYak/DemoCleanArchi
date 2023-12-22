@@ -1,25 +1,76 @@
-﻿namespace Transport
+﻿using Transport.Exceptions;
+
+namespace Transport
 {
+    /// <summary>
+    /// Represents a user of transport
+    /// </summary>
     public class User
     {
         public Guid Id { get; }
         private readonly Queue<Ticket> _tickets;
 
-        public static User New() => new User(Guid.NewGuid(), Array.Empty<Ticket>());
-        public User(Guid id, IEnumerable<Ticket> tickets)
+        /// <summary>
+        /// The <see cref="Ticket"/> in use
+        /// </summary>
+        public Ticket? CurrentTicket { get; private set; }
+
+        /// <summary>
+        /// Initialize a new instance of <see cref="User"/>
+        /// </summary>
+        /// <param name="id">he user identifier</param>
+        /// <param name="tickets">The list of tickets owned by user</param>
+        /// <param name="currentTicket">The ticket in use</param>
+        public User(Guid id, IEnumerable<Ticket> tickets, Ticket? currentTicket=null)
         {
             Id = id;
-            _tickets = new Queue<Ticket>(tickets);
+            _tickets = new Queue<Ticket>(tickets?? Array.Empty<Ticket>());
+            CurrentTicket = currentTicket;
         }
+        public User(Guid id) : this(id, Array.Empty<Ticket>(), null) { }
 
+        /// <summary>
+        /// User buy tickets
+        /// </summary>
+        /// <param name="tickets">The tickets bought</param>
         public void BuyTickets(IEnumerable<Ticket> tickets)
         {
-            foreach(var ticket in tickets)
+            if (tickets != null)
             {
-                _tickets.Enqueue(ticket);
+                foreach (var ticket in tickets)
+                {
+                    _tickets.Enqueue(ticket);
+                }
             }
         }
 
-        public Ticket? UseTicket() => _tickets.TryDequeue(out var ticket) ? ticket : null;
+        /// <summary>
+        /// To use a <see cref="Ticket"/> among the owned ones.
+        /// </summary>
+        /// <returns>The used<see cref="Ticket"/></returns>
+        /// <exception cref="NoMoreTicketForUserException"></exception>
+        public Ticket UseTicket()
+        {
+            Ticket ticket;
+            if (!_tickets.TryDequeue(out ticket!))
+                throw new NoMoreTicketForUserException(Id);
+            CurrentTicket = ticket;
+            return ticket;
+        }
+
+        /// <summary>
+        /// True if <see cref="Ticket"/> in use.
+        /// </summary>
+        public bool HasCurrentTicket => CurrentTicket != null;
+
+        /// <summary>
+        /// True if has some <see cref="Ticket"/> available to b used.
+        /// </summary>
+        public bool HasTicketInPocket => _tickets.Count > 0;
+
+        /// <summary>
+        /// The <see cref="Ticket"/>s owned.
+        /// </summary>
+        public IReadOnlyCollection<Ticket> Tickets => _tickets;
     }
 }

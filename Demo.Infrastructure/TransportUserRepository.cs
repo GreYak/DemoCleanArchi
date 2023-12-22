@@ -1,16 +1,15 @@
 ﻿using Demo.Infrastructure.Ef;
-using Demo.Infrastructure.Ef.Model;
 using Microsoft.EntityFrameworkCore;
-using Shop;
-using Shop.Repository;
+using Transport;
+using Transport.Repository;
 
 namespace Demo.Infrastructure
 {
-    public class ShoppingUserRepository : IUserRepository
+    public class TransportUserRepository : IUserRepository
     {
         private readonly DemoDbContext _dbContext;
 
-        public ShoppingUserRepository(DemoDbContext dbContext)
+        public TransportUserRepository(DemoDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -18,10 +17,11 @@ namespace Demo.Infrastructure
         /// <inheritdoc/>
         public async Task<User?> GetUserByIdAsync(Guid userId)
         {
-            var userDb = await _dbContext.Users.AsNoTracking()
+            var userDb = await _dbContext.Users.AsNoTracking()                
                 .Include(u => u.TicketBook).ThenInclude(tb => tb.Tickets)
+                .Include(u => u.CurrentTicket)
                 .SingleOrDefaultAsync(c => c.Id == userId);
-            return userDb?.ToShopDomain();
+            return userDb?.ToTransportDomain();
         }
 
         /// <inheritdoc/>
@@ -29,13 +29,13 @@ namespace Demo.Infrastructure
         {
             ArgumentNullException.ThrowIfNull(user);
 
-            var userDb = await _dbContext.Users.SingleAsync(c => c.Id == user.Id);
-            userDb.Feed(user);
+            var userDb = await _dbContext.Users
+                .Include(u => u.TicketBook).ThenInclude(tb => tb.Tickets)
+                .Include(u => u.CurrentTicket)
+                .SingleAsync(c => c.Id == user.Id);
 
-            if (user.TicketBook is not null)
-            {
-                userDb.TicketBook = await _dbContext.TicketBooks.SingleAsync(t => t.Id == user.TicketBook.Id);
-            }
+
+            //userDb.Feed(user);
 
             _dbContext.SaveChanges();
         }

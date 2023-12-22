@@ -1,48 +1,72 @@
-﻿using Demo.Application.Model.Commands;
-using Microsoft.Extensions.Logging;
+﻿using Demo.Application.Abstraction;
+using Demo.Application.Dtos.Commands;
+using Demo.Application.Exceptions;
 using Shop;
 using Shop.Repository;
+using Transport;
+using ITransportUserRepository = Transport.Repository.IUserRepository;
+using IShopUserRepository = Shop.Repository.IUserRepository;
+using ShoppingUser = Shop.User;
+using TransportUser = Transport.User;
+using TransportTicket = Transport.Ticket;
 
 namespace Demo.Application
 {
-    public class ShoppingApplicationService
+    public class ShoppingApplicationService : IShoppingApplicationService
     {
-        private readonly ILogger _logger;
         private readonly ITicketBookRepository _ticketBookRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IShopUserRepository _shopUserRepository;
+        private readonly ITransportUserRepository _transportUserRepository;
 
-        public ShoppingApplicationService(ILogger logger, ITicketBookRepository ticketBookRepository, IUserRepository userRepository)
+        public ShoppingApplicationService(ITicketBookRepository ticketBookRepository, IShopUserRepository shopUserRepository, ITransportUserRepository transportUserRepository)
         {
-            _logger = logger;
             _ticketBookRepository = ticketBookRepository;
-            _userRepository = userRepository;
+            _shopUserRepository = shopUserRepository;
+            _transportUserRepository = transportUserRepository;
         }
 
-        public async Task CreateTicketBook(CreateTicketBookDto ticketBookCreationCommand)
+        /// <inheritdoc/>
+        public async Task AddingTicketBookInStoreAsync(CreateTicketBookCommand ticketBookCreationCommand, DateTimeOffset contextualDate)
         {
-            ArgumentNullException.ThrowIfNull(nameof(ticketBookCreationCommand));
-            if (!ticketBookCreationCommand.IsValid())
-                throw new ArgumentException(nameof(ticketBookCreationCommand));
+
+            if (ticketBookCreationCommand?.IsValid() != true)
+                throw new InvalidParamException(nameof(ticketBookCreationCommand), ticketBookCreationCommand);
 
             TicketBook? ticketBook = await _ticketBookRepository.GetTicketBookByIdAsync(ticketBookCreationCommand.TicketBookId);
-            if (ticketBook is not null)
+            if (ticketBook != null)
+                throw new AlreadyExistException(nameof(TicketBook), ticketBookCreationCommand.TicketBookId);
+
+            try
             {
-                var error = $"{nameof(TicketBook)} with id '{ticketBookCreationCommand.TicketBookId}' already exixts.";
-                _logger.LogWarning(error);
-                throw new ApplicationException(error);
+                ticketBook = ticketBookCreationCommand.ToDomain(contextualDate);
+            }
+            catch (Exception ex) 
+            { 
+                throw new DomainException(nameof(ShoppingApplicationService.AddingTicketBookInStoreAsync), ex);
             }
 
-            await _ticketBookRepository.CreateTicketBookAsync(ticketBookCreationCommand.ToDomain(DateTimeOffset.Now));  // TODO.
+            await _ticketBookRepository.CreateTicketBookAsync(ticketBook);
         }
 
+        /// <inheritdoc/>
         public async Task UserBuyTicketBookAsync(Guid userId, Guid ticketBookId)
         {
-            User user = await _userRepository.GetUserByIdAsync(userId) ?? new User(userId);
-            TicketBook ticketBook = await _ticketBookRepository.GetTicketBookByIdAsync(ticketBookId) ?? throw new ArgumentException(nameof(ticketBookId));
+            ShoppingUser shoppingUser = await _shopUserRepository.GetUserByIdAsync(userId) ?? new ShoppingUser(userId);
+            TransportUser transportUser = await _transportUserRepository.GetUserByIdAsync(userId) ?? new TransportUser(userId);
+            TicketBook ticketBook = await _ticketBookRepository.GetTicketBookByIdAsync(ticketBookId) ?? throw new NotFoundException(nameof(TicketBook), ticketBookId);
 
-            user.Buy(ticketBook);
+            try 
+            { 
+                shoppingUser.Buy(ticketBook);
+                transportUser.BuyTickets(ticketBook.TicketIds.Select(id => new TransportTicket(id, ticketBook.IssueDate)));
+            }
+            catch (Exception ex) 
+            { 
+                throw new DomainException(nameof(ShoppingApplicationService.UserBuyTicketBookAsync), ex);
+            }
 
-            await _userRepository.SaveAsync(user);
+            await _shopUserRepository.SaveAsync(shoppingUser);
+            await _transportUserRepository.SaveAsync(transportUser);
         }
     }
 }
