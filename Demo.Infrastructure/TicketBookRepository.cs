@@ -2,7 +2,7 @@
 using Demo.Infrastructure.Ef.Model;
 using Microsoft.EntityFrameworkCore;
 using Shop;
-using Shop.Repository;
+using Shop.Repositories;
 
 namespace Demo.Infrastructure
 {

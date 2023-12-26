@@ -2,10 +2,10 @@
 using Demo.Application.Abstraction;
 using Demo.Infrastructure;
 using Demo.Infrastructure.Ef;
-using Shop.Repository;
-using Transport.Repository;
-using IShopUserRepository = Shop.Repository.IUserRepository;
-using ITransportUserRepository = Transport.Repository.IUserRepository;
+using Shop.Repositories;
+using Transport.Repositories;
+using IShopUserRepository = Shop.Repositories.IUserRepository;
+using ITransportUserRepository = Transport.Repositories.IUserRepository;
 
 namespace Demo.Api.Extensions
 {

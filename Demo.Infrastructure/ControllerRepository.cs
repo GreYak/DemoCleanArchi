@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Shop;
 using Transport;
-using Transport.Repository;
+using Transport.Repositories;
 
 namespace Demo.Infrastructure
 {

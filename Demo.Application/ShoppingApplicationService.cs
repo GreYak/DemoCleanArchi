@@ -2,10 +2,10 @@
 using Demo.Application.Dtos.Commands;
 using Demo.Application.Exceptions;
 using Shop;
-using Shop.Repository;
+using Shop.Repositories;
 using Transport;
-using ITransportUserRepository = Transport.Repository.IUserRepository;
-using IShopUserRepository = Shop.Repository.IUserRepository;
+using ITransportUserRepository = Transport.Repositories.IUserRepository;
+using IShopUserRepository = Shop.Repositories.IUserRepository;
 using ShoppingUser = Shop.User;
 using TransportUser = Transport.User;
 using TransportTicket = Transport.Ticket;

@@ -1,4 +1,4 @@
-﻿namespace Transport.Repository
+﻿namespace Transport.Repositories
 {
     /// <summary>
     /// Manage the <see cref="Controller"/> persistancy.

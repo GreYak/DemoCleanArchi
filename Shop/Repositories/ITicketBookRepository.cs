@@ -1,4 +1,4 @@
-﻿namespace Shop.Repository
+﻿namespace Shop.Repositories
 {
     /// <summary>
     /// Manage the <see cref="TicketBook"/> persistancy.

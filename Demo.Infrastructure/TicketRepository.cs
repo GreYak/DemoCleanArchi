@@ -1,7 +1,7 @@
 ﻿using Demo.Infrastructure.Ef;
 using Microsoft.EntityFrameworkCore;
 using Transport;
-using Transport.Repository;
+using Transport.Repositories;
 
 namespace Demo.Infrastructure
 {

@@ -1,4 +1,4 @@
-﻿namespace Transport.Repository
+﻿namespace Shop.Repositories
 {
     /// <summary>
     /// Manage the <see cref="User"/> persistancy.
@@ -9,13 +9,13 @@
         /// Get the <see cref="User"/> identified by its Id.
         /// </summary>
         /// <param name="userId">The <see cref="User"/> identifier</param>
-        /// <returns>The <see cref="User"/> if found, else null.</returns>
+        /// <returns>The user if found, else null.</returns>
         Task<User?> GetUserByIdAsync(Guid userId);
 
         /// <summary>
-        /// Create or update an <see cref="User"/>
+        /// Create or update the <see cref="User"/>.
         /// </summary>
-        /// <param name="user">The <see cref="User"/> to save</param>
+        /// <param name="user"><see cref="User"/></param>
         /// <returns><see cref="Task"/></returns>
         Task SaveAsync(User user);
     }

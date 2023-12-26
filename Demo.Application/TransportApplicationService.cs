@@ -2,7 +2,7 @@
 using Demo.Application.Exceptions;
 using Transport;
 using Transport.Contracts;
-using Transport.Repository;
+using Transport.Repositories;
 
 namespace Demo.Application
 {
