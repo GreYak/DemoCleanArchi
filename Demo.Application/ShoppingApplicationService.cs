@@ -3,12 +3,11 @@ using Demo.Application.Dtos.Commands;
 using Demo.Application.Exceptions;
 using Shop;
 using Shop.Repository;
-using Transport;
-using ITransportUserRepository = Transport.Repository.IUserRepository;
 using IShopUserRepository = Shop.Repository.IUserRepository;
+using ITransportUserRepository = Transport.Repository.IUserRepository;
 using ShoppingUser = Shop.User;
-using TransportUser = Transport.User;
 using TransportTicket = Transport.Ticket;
+using TransportUser = Transport.User;
 
 namespace Demo.Application
 {

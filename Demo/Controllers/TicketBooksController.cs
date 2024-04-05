@@ -1,6 +1,7 @@
 ﻿using Demo.Application.Abstraction;
 using Demo.Application.Dtos.Commands;
 using Demo.Application.Exceptions;
+using Demo.Infrastructure.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Api.Controllers
@@ -11,6 +12,7 @@ namespace Demo.Api.Controllers
     {
         private readonly ILogger _logger;
         private readonly IShoppingApplicationService _shoppingService;
+        private readonly IExecutionContext _executionContext;
 
         public TicketBooksController(ILogger<UsersController> logger, IShoppingApplicationService shoppingService)
         {
@@ -23,7 +25,7 @@ namespace Demo.Api.Controllers
         {
             try
             {
-                await _shoppingService.AddingTicketBookInStoreAsync(new CreateTicketBookCommand(ticketBookId, tickets), DateTimeOffset.Now);
+                await _shoppingService.AddingTicketBookInStoreAsync(new CreateTicketBookCommand(ticketBookId, tickets), _executionContext.ReferenceDateTime);
                 return NoContent();
             }
             catch (Exception ex) when (ex is AlreadyExistException || ex is DomainException || ex is InvalidParamException)

@@ -1,5 +1,6 @@
 ﻿using Demo.Application.Abstraction;
 using Demo.Application.Exceptions;
+using Demo.Infrastructure.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Api.Controllers
@@ -10,11 +11,13 @@ namespace Demo.Api.Controllers
     {
         private readonly ILogger _logger;
         private readonly ITransportApplicationService _transportService;
+        private readonly IExecutionContext _executionContext;
 
-        public ControllersController(ILogger<UsersController> logger, IShoppingApplicationService shoppingService, ITransportApplicationService transportService)
+        public ControllersController(ILogger<UsersController> logger, IShoppingApplicationService shoppingService, ITransportApplicationService transportService, IExecutionContext executionContext)
         {
             _logger = logger;
             _transportService = transportService;
+            _executionContext = executionContext;
         }
 
         [HttpPost, Route("{controllerId}/control/{userId}")]
@@ -22,7 +25,7 @@ namespace Demo.Api.Controllers
         {
             try
             {
-                await _transportService.ControlUserInTransportAsync(controllerId, userId, DateTimeOffset.Now);
+                await _transportService.ControlUserInTransportAsync(controllerId, userId, _executionContext.ReferenceDateTime);
                 return NoContent();
             }
             catch (NotFoundException ex)

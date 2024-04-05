@@ -1,9 +1,11 @@
 ﻿using Demo.Application;
 using Demo.Application.Abstraction;
 using Demo.Infrastructure;
+using Demo.Infrastructure.Abstractions;
 using Demo.Infrastructure.Ef;
 using Shop.Repository;
 using Transport.Repository;
+using static Demo.Api.Middleware.ExecutionContextMiddleware;
 using IShopUserRepository = Shop.Repository.IUserRepository;
 using ITransportUserRepository = Transport.Repository.IUserRepository;
 
@@ -25,6 +27,7 @@ namespace Demo.Api.Extensions
             services.AddScoped<IControllerRepository, ControllerRepository>();
 
             // Infrastructure
+            services.AddScoped<IExecutionContext, HttpExecutionContext>();
             services.AddDbContext<DemoDbContext>();
         }
     }
